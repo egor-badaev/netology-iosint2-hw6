@@ -13,6 +13,7 @@ class ResultsViewController: UIViewController {
     // MARK: - Properties
     
     var term: String
+    var networkManager: NetworkService
     var results: Results?
     
     private let activityIndicator: UIActivityIndicatorView = {
@@ -45,6 +46,7 @@ class ResultsViewController: UIViewController {
     
     init(_ term: String) {
         self.term = term
+        self.networkManager = NetworkService.sharedManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -83,7 +85,29 @@ class ResultsViewController: UIViewController {
     private func fetchData() {
         activityIndicator.startAnimating()
         
-        // TODO: Perform search
+        networkManager.search(user: term) { data in
+            DispatchQueue.main.async { [weak self] in
+                self?.activityIndicator.stopAnimating()
+            }
+            guard let json = try? JSON(data: data) else {
+                return
+            }
+            self.results = Results(fromJson: json)
+            guard let results = self.results else { return }
+
+            print("Found \(results.count) results")
+
+            DispatchQueue.main.async { [weak self] in
+                self?.collectionView.isHidden = false
+                self?.collectionView.reloadData()
+            }
+
+        } onFailure: { errorMessage in
+            DispatchQueue.main.async { [weak self] in
+                self?.activityIndicator.stopAnimating()
+                self?.present(AlertFactory.makeErrorAlert(message: errorMessage), animated: true, completion: nil)
+            }
+        }
     }
 
 }
@@ -104,10 +128,13 @@ extension ResultsViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultsCollectionViewCell.reuseIdentifier, for: indexPath) as? ResultsCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultsCollectionViewCell.reuseIdentifier, for: indexPath) as? ResultsCollectionViewCell,
+              let user = results?.users[indexPath.item] else {
             return UICollectionViewCell()
         }
-
+        
+        cell.configure(withName: user.name, avatarUrl: user.avatarUrl)
+        
         return cell
         
     }

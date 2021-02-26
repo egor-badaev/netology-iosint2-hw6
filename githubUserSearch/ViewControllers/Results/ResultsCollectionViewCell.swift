@@ -56,4 +56,10 @@ class ResultsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public functions
+    
+    func configure(withName name: String, avatarUrl: String) {
+        nameLabel.text = name
+        avatarImage.downloaded(from: avatarUrl)
+    }
 }
