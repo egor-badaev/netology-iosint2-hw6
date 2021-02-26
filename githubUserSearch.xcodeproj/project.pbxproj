@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7421A84F25E97CD700AD2ED9 /* UIImageView+Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7421A84E25E97CD700AD2ED9 /* UIImageView+Network.swift */; };
 		743823EC25E8420100CA4379 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743823EB25E8420100CA4379 /* AppDelegate.swift */; };
 		743823EE25E8420100CA4379 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743823ED25E8420100CA4379 /* SceneDelegate.swift */; };
 		743823F025E8420100CA4379 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743823EF25E8420100CA4379 /* SearchViewController.swift */; };
@@ -17,6 +18,7 @@
 		7488113725E84AF500B9BBC5 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488113625E84AF500B9BBC5 /* ResultsViewController.swift */; };
 		7488117725E9645B00B9BBC5 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488117625E9645B00B9BBC5 /* AlertFactory.swift */; };
 		7488117B25E9662900B9BBC5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488117A25E9662900B9BBC5 /* User.swift */; };
+		7488117F25E9669600B9BBC5 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488117E25E9669600B9BBC5 /* NetworkService.swift */; };
 		7488118225E970A900B9BBC5 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488118125E970A900B9BBC5 /* Results.swift */; };
 		7488118525E979A800B9BBC5 /* ResultsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488118425E979A800B9BBC5 /* ResultsCollectionViewCell.swift */; };
 		7488118925E97A2000B9BBC5 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488118825E97A2000B9BBC5 /* UIView+AutoLayout.swift */; };
@@ -27,6 +29,7 @@
 		153A126915A0D235D62D3C3E /* Pods-githubUserSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-githubUserSearch.debug.xcconfig"; path = "Target Support Files/Pods-githubUserSearch/Pods-githubUserSearch.debug.xcconfig"; sourceTree = "<group>"; };
 		30B1102A491A977988D1D438 /* Pods-githubUserSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-githubUserSearch.release.xcconfig"; path = "Target Support Files/Pods-githubUserSearch/Pods-githubUserSearch.release.xcconfig"; sourceTree = "<group>"; };
 		4692BE9831C1C2754E4DC072 /* Pods_githubUserSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_githubUserSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7421A84E25E97CD700AD2ED9 /* UIImageView+Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Network.swift"; sourceTree = "<group>"; };
 		743823E825E8420100CA4379 /* githubUserSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = githubUserSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		743823EB25E8420100CA4379 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		743823ED25E8420100CA4379 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +42,7 @@
 		7488113625E84AF500B9BBC5 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		7488117625E9645B00B9BBC5 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
 		7488117A25E9662900B9BBC5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7488117E25E9669600B9BBC5 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		7488118125E970A900B9BBC5 /* Results.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Results.swift; sourceTree = "<group>"; };
 		7488118425E979A800B9BBC5 /* ResultsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsCollectionViewCell.swift; sourceTree = "<group>"; };
 		7488118825E97A2000B9BBC5 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
@@ -77,6 +81,7 @@
 		743823EA25E8420100CA4379 /* githubUserSearch */ = {
 			isa = PBXGroup;
 			children = (
+				7488117D25E9666A00B9BBC5 /* Networking */,
 				7488117925E9661500B9BBC5 /* Model */,
 				7488113D25E8503400B9BBC5 /* Helpers */,
 				743823EB25E8420100CA4379 /* AppDelegate.swift */,
@@ -96,6 +101,7 @@
 				7438240025E849BB00CA4379 /* AppSettings.swift */,
 				7488117625E9645B00B9BBC5 /* AlertFactory.swift */,
 				7488118825E97A2000B9BBC5 /* UIView+AutoLayout.swift */,
+				7421A84E25E97CD700AD2ED9 /* UIImageView+Network.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -116,6 +122,14 @@
 				7488118125E970A900B9BBC5 /* Results.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7488117D25E9666A00B9BBC5 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				7488117E25E9669600B9BBC5 /* NetworkService.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		7488118725E979B000B9BBC5 /* Results */ = {
@@ -260,9 +274,11 @@
 			files = (
 				743823F025E8420100CA4379 /* SearchViewController.swift in Sources */,
 				743823EC25E8420100CA4379 /* AppDelegate.swift in Sources */,
+				7488117F25E9669600B9BBC5 /* NetworkService.swift in Sources */,
 				7488118525E979A800B9BBC5 /* ResultsCollectionViewCell.swift in Sources */,
 				7438240125E849BB00CA4379 /* AppSettings.swift in Sources */,
 				7488113725E84AF500B9BBC5 /* ResultsViewController.swift in Sources */,
+				7421A84F25E97CD700AD2ED9 /* UIImageView+Network.swift in Sources */,
 				743823EE25E8420100CA4379 /* SceneDelegate.swift in Sources */,
 				7488118225E970A900B9BBC5 /* Results.swift in Sources */,
 				7488117725E9645B00B9BBC5 /* AlertFactory.swift in Sources */,
