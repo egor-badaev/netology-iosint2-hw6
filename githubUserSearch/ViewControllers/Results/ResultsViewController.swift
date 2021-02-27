@@ -98,14 +98,16 @@ class ResultsViewController: UIViewController {
             print("Found \(results.count) results")
 
             DispatchQueue.main.async { [weak self] in
-                self?.collectionView.isHidden = false
-                self?.collectionView.reloadData()
+                guard let self = self else { return }
+                self.collectionView.isHidden = false
+                self.collectionView.reloadData()
             }
 
         } onFailure: { errorMessage in
             DispatchQueue.main.async { [weak self] in
-                self?.activityIndicator.stopAnimating()
-                self?.present(AlertFactory.makeErrorAlert(message: errorMessage), animated: true, completion: nil)
+                guard let self = self else { return }
+                self.activityIndicator.stopAnimating()
+                self.present(AlertFactory.makeErrorAlert(message: errorMessage), animated: true, completion: nil)
             }
         }
     }

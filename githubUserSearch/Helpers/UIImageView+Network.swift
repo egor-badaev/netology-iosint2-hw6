@@ -32,13 +32,13 @@ extension UIImageView {
                   let data = data,
                   error == nil,
                   let image = UIImage(data: data) else {
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
                     // remove ai
                     activityIndicator.stopAnimating()
                     NSLayoutConstraint.deactivate(activityConstraints)
                     activityIndicator.removeFromSuperview()
                     
-                    // TODO: set placeholder image
+                    self?.image = #imageLiteral(resourceName: "placeholder")
                 }
                 return
             }

@@ -9,6 +9,9 @@ import Foundation
 
 class NetworkService {
     
+    typealias SuccessBlock = ((Data) -> Void)?
+    typealias FailureBlock = ((String?) -> Void)?
+    
     static let sharedManager: NetworkService = {
         let instance = NetworkService()
         return instance
@@ -16,7 +19,7 @@ class NetworkService {
     
     private let baseUrl = "https://api.github.com/search/users"
     
-    func search(user term: String, onSuccess success: ((Data) -> Void)?, onFailure failure: ((String?) -> Void)?) {
+    func search(user term: String, onSuccess success: SuccessBlock, onFailure failure: FailureBlock) {
         
         guard let queryString = "q=\(term)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: "\(baseUrl)?\(queryString)") else {
