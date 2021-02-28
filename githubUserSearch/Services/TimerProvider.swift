@@ -15,12 +15,12 @@ protocol TimerProviderDelegate: AnyObject {
 class TimerProvider {
     
     // MARK: Public properties
-    var countdown: Int { wholeSecondsToReload }
+    var countdown: Int { wholeSecondsToReload > 0 ? wholeSecondsToReload : Int(reloadInterval.rounded(.up)) }
     weak var delegate: TimerProviderDelegate?
 
     // MARK: Private properties
     private lazy var timer: Timer = {
-        let timer = Timer(timeInterval: 0.1,
+        let timer = Timer(timeInterval: timeInterval,
                           target: self,
                           selector: #selector(timerUpdated(_:)),
                           userInfo: nil,

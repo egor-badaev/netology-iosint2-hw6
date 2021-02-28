@@ -50,7 +50,7 @@ class ResultsViewController: UIViewController {
     init(_ term: String) {
         self.term = term
         self.networkManager = NetworkService.sharedManager
-        timerProvider = TimerProvider(timeInterval: 0.1, reloadInterval: AppSettings.reloadInterval)
+        timerProvider = TimerProvider(timeInterval: 1.0, reloadInterval: AppSettings.reloadInterval)
         super.init(nibName: nil, bundle: nil)
         timerProvider.delegate = self
     }
