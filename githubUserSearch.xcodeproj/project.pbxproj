@@ -15,6 +15,8 @@
 		743823F525E8420600CA4379 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 743823F425E8420600CA4379 /* Assets.xcassets */; };
 		743823F825E8420600CA4379 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 743823F625E8420600CA4379 /* LaunchScreen.storyboard */; };
 		7438240125E849BB00CA4379 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7438240025E849BB00CA4379 /* AppSettings.swift */; };
+		74746F1D25EA968600E7CC76 /* ResultsCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74746F1C25EA968600E7CC76 /* ResultsCollectionViewHeader.swift */; };
+		74746F2225EAE4FF00E7CC76 /* TimerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74746F2125EAE4FF00E7CC76 /* TimerProvider.swift */; };
 		7488113725E84AF500B9BBC5 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488113625E84AF500B9BBC5 /* ResultsViewController.swift */; };
 		7488117725E9645B00B9BBC5 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488117625E9645B00B9BBC5 /* AlertFactory.swift */; };
 		7488117B25E9662900B9BBC5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488117A25E9662900B9BBC5 /* User.swift */; };
@@ -39,6 +41,8 @@
 		743823F725E8420600CA4379 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		743823F925E8420600CA4379 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7438240025E849BB00CA4379 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		74746F1C25EA968600E7CC76 /* ResultsCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsCollectionViewHeader.swift; sourceTree = "<group>"; };
+		74746F2125EAE4FF00E7CC76 /* TimerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerProvider.swift; sourceTree = "<group>"; };
 		7488113625E84AF500B9BBC5 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		7488117625E9645B00B9BBC5 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
 		7488117A25E9662900B9BBC5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -81,7 +85,7 @@
 		743823EA25E8420100CA4379 /* githubUserSearch */ = {
 			isa = PBXGroup;
 			children = (
-				7488117D25E9666A00B9BBC5 /* Networking */,
+				7488117D25E9666A00B9BBC5 /* Services */,
 				7488117925E9661500B9BBC5 /* Model */,
 				7488113D25E8503400B9BBC5 /* Helpers */,
 				743823EB25E8420100CA4379 /* AppDelegate.swift */,
@@ -124,18 +128,20 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		7488117D25E9666A00B9BBC5 /* Networking */ = {
+		7488117D25E9666A00B9BBC5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				7488117E25E9669600B9BBC5 /* NetworkService.swift */,
+				74746F2125EAE4FF00E7CC76 /* TimerProvider.swift */,
 			);
-			path = Networking;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		7488118725E979B000B9BBC5 /* Results */ = {
 			isa = PBXGroup;
 			children = (
 				7488113625E84AF500B9BBC5 /* ResultsViewController.swift */,
+				74746F1C25EA968600E7CC76 /* ResultsCollectionViewHeader.swift */,
 				7488118425E979A800B9BBC5 /* ResultsCollectionViewCell.swift */,
 			);
 			path = Results;
@@ -273,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				743823F025E8420100CA4379 /* SearchViewController.swift in Sources */,
+				74746F1D25EA968600E7CC76 /* ResultsCollectionViewHeader.swift in Sources */,
 				743823EC25E8420100CA4379 /* AppDelegate.swift in Sources */,
 				7488117F25E9669600B9BBC5 /* NetworkService.swift in Sources */,
 				7488118525E979A800B9BBC5 /* ResultsCollectionViewCell.swift in Sources */,
@@ -282,6 +289,7 @@
 				743823EE25E8420100CA4379 /* SceneDelegate.swift in Sources */,
 				7488118225E970A900B9BBC5 /* Results.swift in Sources */,
 				7488117725E9645B00B9BBC5 /* AlertFactory.swift in Sources */,
+				74746F2225EAE4FF00E7CC76 /* TimerProvider.swift in Sources */,
 				7488118925E97A2000B9BBC5 /* UIView+AutoLayout.swift in Sources */,
 				7488117B25E9662900B9BBC5 /* User.swift in Sources */,
 			);

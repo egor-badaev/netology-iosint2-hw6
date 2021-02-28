@@ -13,8 +13,10 @@ class ResultsViewController: UIViewController {
     // MARK: - Properties
     
     var term: String
-    var networkManager: NetworkService
-    var results: Results?
+    private var networkManager: NetworkService
+    private var timerProvider: TimerProvider
+    private var results: Results?
+    private var headerView: ResultsCollectionViewHeader?
     
     private let activityIndicator: UIActivityIndicatorView = {
         $0.toAutoLayout()
@@ -31,6 +33,7 @@ class ResultsViewController: UIViewController {
         collectionView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
         collectionView.register(ResultsCollectionViewCell.self, forCellWithReuseIdentifier: ResultsCollectionViewCell.reuseIdentifier)
+        collectionView.register(ResultsCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ResultsCollectionViewHeader.reuseIdentifier)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -47,7 +50,9 @@ class ResultsViewController: UIViewController {
     init(_ term: String) {
         self.term = term
         self.networkManager = NetworkService.sharedManager
+        timerProvider = TimerProvider(timeInterval: 0.1, reloadInterval: AppSettings.reloadInterval)
         super.init(nibName: nil, bundle: nil)
+        timerProvider.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -59,6 +64,16 @@ class ResultsViewController: UIViewController {
 
         setupUI()
         fetchData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        timerProvider.startTimer()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        timerProvider.stopTimer()
     }
     
     // MARK: - Private methods
@@ -140,6 +155,17 @@ extension ResultsViewController: UICollectionViewDataSource {
         return cell
         
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        print(type(of: self), #function)
+        headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ResultsCollectionViewHeader.reuseIdentifier, for: indexPath) as? ResultsCollectionViewHeader
+        guard let headerView = headerView else {
+            print("Unexpected")
+            return UICollectionReusableView()
+        }
+        headerView.updateTimer(with: timerProvider.countdown)
+        return headerView
+    }
 
 }
 
@@ -175,5 +201,32 @@ extension ResultsViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: width, height: height)
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        guard let headerView = headerView else {
+            return CGSize(width: collectionView.frame.width, height: 90)
+        }
+        
+        /// From [stack overflow](https://stackoverflow.com/questions/39825290/uicollectionview-header-dynamic-height-using-auto-layout)
+        return headerView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height), withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
+
+    }
+}
+
+extension ResultsViewController: TimerProviderDelegate {
+    func reloadData() {
+        // reset data
+        results?.users = []
+        collectionView.reloadData()
+        collectionView.isHidden = true
+        activityIndicator.isHidden = false
+        
+        // load data again
+        fetchData()
+    }
+    
+    func updateTimer(countdown: Int) {
+        headerView?.updateTimer(with: countdown)
     }
 }

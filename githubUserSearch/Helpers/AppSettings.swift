@@ -16,4 +16,6 @@ enum AppSettings {
     static let collectionInsets = UIEdgeInsets(top: 16, left: 8, bottom: 16, right: 8)
     static let collectionSpacing: CGFloat = 8
     static let collectionMinimumColumnWidth: CGFloat = 148
+    
+    static let reloadInterval: TimeInterval = 5.0
 }
