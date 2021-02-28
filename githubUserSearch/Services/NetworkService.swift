@@ -18,14 +18,26 @@ class NetworkService {
     }()
     
     private let baseUrl = "https://api.github.com/search/users"
+    private var fetchInProgress = false
+    
+    private init() {
+        
+    }
     
     func search(user term: String, onSuccess success: SuccessBlock, onFailure failure: FailureBlock) {
         
+        guard !fetchInProgress else {
+            return
+        }
+
         guard let queryString = "q=\(term)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: "\(baseUrl)?\(queryString)") else {
             failure?("Invalid URL")
             return
         }
+
+        fetchInProgress = true
+
         URLSession.shared.dataTask(with: url) { data, response, error in
 
             guard let httpURLResponse = response as? HTTPURLResponse,
@@ -40,12 +52,13 @@ class NetworkService {
                 } else {
                     failureReason = "Server response unrecognized"
                 }
+                self.fetchInProgress = false
                 failure?(failureReason)
                 return
             }
             
             print("Search completed succesfully!")
-            
+            self.fetchInProgress = false
             success?(data)
             
         }.resume()
