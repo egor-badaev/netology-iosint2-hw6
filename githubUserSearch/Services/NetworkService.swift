@@ -6,11 +6,26 @@
 //
 
 import Foundation
+import SwiftyJSON
+
+enum NetworkServiceError: LocalizedError {
+    case invalidURL
+    case badResponse
+    case invalidData
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidURL:
+            return "Данный URL не является валидным"
+        case .badResponse:
+            return "Не получен валидный ответ от сервера"
+        case .invalidData:
+            return "Не удалось распознать ответ от сервера"
+        }
+    }
+}
 
 class NetworkService {
-    
-    typealias SuccessBlock = ((Data) -> Void)?
-    typealias FailureBlock = ((String?) -> Void)?
     
     static let sharedManager: NetworkService = {
         let instance = NetworkService()
@@ -24,7 +39,7 @@ class NetworkService {
         
     }
     
-    func search(user term: String, onSuccess success: SuccessBlock, onFailure failure: FailureBlock) {
+    func search(user term: String, onCompletion completion: @escaping (Result<JSON, Error>) -> Void) {
         
         guard !fetchInProgress else {
             return
@@ -32,7 +47,7 @@ class NetworkService {
 
         guard let queryString = "q=\(term)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: "\(baseUrl)?\(queryString)") else {
-            failure?("Invalid URL")
+            completion(.failure(NetworkServiceError.invalidURL))
             return
         }
 
@@ -40,26 +55,29 @@ class NetworkService {
 
         URLSession.shared.dataTask(with: url) { data, response, error in
 
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
             guard let httpURLResponse = response as? HTTPURLResponse,
                   httpURLResponse.statusCode == 200,
                   let mimeType = response?.mimeType,
                   mimeType.hasSuffix("json"),
-                  let data = data,
-                  error == nil else {
-                var failureReason: String? = nil
-                if let error = error {
-                    failureReason = error.localizedDescription
-                } else {
-                    failureReason = "Server response unrecognized"
-                }
+                  let data = data else {
                 self.fetchInProgress = false
-                failure?(failureReason)
+                completion(.failure(NetworkServiceError.badResponse))
                 return
             }
             
             print("Search completed succesfully!")
             self.fetchInProgress = false
-            success?(data)
+            
+            guard let json = try? JSON(data: data) else {
+                completion(.failure(NetworkServiceError.invalidData))
+                return
+            }
+            
+            completion(.success(json))
             
         }.resume()
     }

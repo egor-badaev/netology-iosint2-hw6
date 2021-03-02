@@ -21,8 +21,9 @@ class Results {
         let items = json["items"].arrayValue
         
         items.forEach { itemJson in
-            let user = User(fromJson: itemJson)
-            users.append(user)
+            if let user = try? User(fromJson: itemJson) {
+                users.append(user)
+            }
         }
     }
 }

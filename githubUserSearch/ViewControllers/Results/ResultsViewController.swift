@@ -100,29 +100,28 @@ class ResultsViewController: UIViewController {
     private func fetchData() {
         activityIndicator.startAnimating()
         
-        networkManager.search(user: term) { data in
-            DispatchQueue.main.async { [weak self] in
-                self?.activityIndicator.stopAnimating()
-            }
-            guard let json = try? JSON(data: data) else {
-                return
-            }
-            self.results = Results(fromJson: json)
-            guard let results = self.results else { return }
+        networkManager.search(user: term) { result in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.activityIndicator.stopAnimating()
+                    self.present(AlertFactory.makeErrorAlert(message: error.localizedDescription), animated: true, completion: nil)
+                }
+            case .success(let json):
+                DispatchQueue.main.async { [weak self] in
+                    self?.activityIndicator.stopAnimating()
+                }
+                self.results = Results(fromJson: json)
+                guard let results = self.results else { return }
 
-            print("Found \(results.count) results")
+                print("Found \(results.count) results")
 
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.collectionView.isHidden = false
-                self.collectionView.reloadData()
-            }
-
-        } onFailure: { errorMessage in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.activityIndicator.stopAnimating()
-                self.present(AlertFactory.makeErrorAlert(message: errorMessage), animated: true, completion: nil)
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.collectionView.isHidden = false
+                    self.collectionView.reloadData()
+                }
             }
         }
     }

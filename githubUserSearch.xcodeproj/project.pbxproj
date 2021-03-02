@@ -17,6 +17,12 @@
 		7438240125E849BB00CA4379 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7438240025E849BB00CA4379 /* AppSettings.swift */; };
 		74746F1D25EA968600E7CC76 /* ResultsCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74746F1C25EA968600E7CC76 /* ResultsCollectionViewHeader.swift */; };
 		74746F2225EAE4FF00E7CC76 /* TimerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74746F2125EAE4FF00E7CC76 /* TimerProvider.swift */; };
+		74873AF225EECB67008914E2 /* NSRegularExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74873AF125EECB67008914E2 /* NSRegularExpression.swift */; };
+		74873AF525EECC78008914E2 /* UserInputValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74873AF425EECC78008914E2 /* UserInputValidator.swift */; };
+		74873AF825EED85B008914E2 /* Pluralization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74873AF725EED85B008914E2 /* Pluralization.swift */; };
+		74873AFB25EED9A7008914E2 /* Double+Pluralization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74873AFA25EED9A7008914E2 /* Double+Pluralization.swift */; };
+		74873B0225EED9D0008914E2 /* Int+Pluralization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74873B0125EED9D0008914E2 /* Int+Pluralization.swift */; };
+		74873B0525EEE008008914E2 /* PluralizableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74873B0425EEE008008914E2 /* PluralizableString.swift */; };
 		7488113725E84AF500B9BBC5 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488113625E84AF500B9BBC5 /* ResultsViewController.swift */; };
 		7488117725E9645B00B9BBC5 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488117625E9645B00B9BBC5 /* AlertFactory.swift */; };
 		7488117B25E9662900B9BBC5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7488117A25E9662900B9BBC5 /* User.swift */; };
@@ -43,6 +49,12 @@
 		7438240025E849BB00CA4379 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		74746F1C25EA968600E7CC76 /* ResultsCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsCollectionViewHeader.swift; sourceTree = "<group>"; };
 		74746F2125EAE4FF00E7CC76 /* TimerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerProvider.swift; sourceTree = "<group>"; };
+		74873AF125EECB67008914E2 /* NSRegularExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSRegularExpression.swift; sourceTree = "<group>"; };
+		74873AF425EECC78008914E2 /* UserInputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputValidator.swift; sourceTree = "<group>"; };
+		74873AF725EED85B008914E2 /* Pluralization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pluralization.swift; sourceTree = "<group>"; };
+		74873AFA25EED9A7008914E2 /* Double+Pluralization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Pluralization.swift"; sourceTree = "<group>"; };
+		74873B0125EED9D0008914E2 /* Int+Pluralization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Pluralization.swift"; sourceTree = "<group>"; };
+		74873B0425EEE008008914E2 /* PluralizableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluralizableString.swift; sourceTree = "<group>"; };
 		7488113625E84AF500B9BBC5 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		7488117625E9645B00B9BBC5 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
 		7488117A25E9662900B9BBC5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -99,6 +111,17 @@
 			path = githubUserSearch;
 			sourceTree = "<group>";
 		};
+		74873B0725EEE021008914E2 /* Pluralization */ = {
+			isa = PBXGroup;
+			children = (
+				74873AF725EED85B008914E2 /* Pluralization.swift */,
+				74873B0425EEE008008914E2 /* PluralizableString.swift */,
+				74873AFA25EED9A7008914E2 /* Double+Pluralization.swift */,
+				74873B0125EED9D0008914E2 /* Int+Pluralization.swift */,
+			);
+			path = Pluralization;
+			sourceTree = "<group>";
+		};
 		7488113D25E8503400B9BBC5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +129,8 @@
 				7488117625E9645B00B9BBC5 /* AlertFactory.swift */,
 				7488118825E97A2000B9BBC5 /* UIView+AutoLayout.swift */,
 				7421A84E25E97CD700AD2ED9 /* UIImageView+Network.swift */,
+				74873AF125EECB67008914E2 /* NSRegularExpression.swift */,
+				74873B0725EEE021008914E2 /* Pluralization */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -114,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				743823EF25E8420100CA4379 /* SearchViewController.swift */,
+				74873AF425EECC78008914E2 /* UserInputValidator.swift */,
 				7488118725E979B000B9BBC5 /* Results */,
 			);
 			path = ViewControllers;
@@ -281,15 +307,21 @@
 				743823F025E8420100CA4379 /* SearchViewController.swift in Sources */,
 				74746F1D25EA968600E7CC76 /* ResultsCollectionViewHeader.swift in Sources */,
 				743823EC25E8420100CA4379 /* AppDelegate.swift in Sources */,
+				74873B0225EED9D0008914E2 /* Int+Pluralization.swift in Sources */,
+				74873AF225EECB67008914E2 /* NSRegularExpression.swift in Sources */,
 				7488117F25E9669600B9BBC5 /* NetworkService.swift in Sources */,
 				7488118525E979A800B9BBC5 /* ResultsCollectionViewCell.swift in Sources */,
 				7438240125E849BB00CA4379 /* AppSettings.swift in Sources */,
 				7488113725E84AF500B9BBC5 /* ResultsViewController.swift in Sources */,
+				74873B0525EEE008008914E2 /* PluralizableString.swift in Sources */,
+				74873AF525EECC78008914E2 /* UserInputValidator.swift in Sources */,
+				74873AF825EED85B008914E2 /* Pluralization.swift in Sources */,
 				7421A84F25E97CD700AD2ED9 /* UIImageView+Network.swift in Sources */,
 				743823EE25E8420100CA4379 /* SceneDelegate.swift in Sources */,
 				7488118225E970A900B9BBC5 /* Results.swift in Sources */,
 				7488117725E9645B00B9BBC5 /* AlertFactory.swift in Sources */,
 				74746F2225EAE4FF00E7CC76 /* TimerProvider.swift in Sources */,
+				74873AFB25EED9A7008914E2 /* Double+Pluralization.swift in Sources */,
 				7488118925E97A2000B9BBC5 /* UIView+AutoLayout.swift in Sources */,
 				7488117B25E9662900B9BBC5 /* User.swift in Sources */,
 			);

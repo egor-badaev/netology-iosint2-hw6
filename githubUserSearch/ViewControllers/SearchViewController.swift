@@ -51,6 +51,11 @@ class SearchViewController: UIViewController {
         
         return $0
     }(UIStackView())
+    
+    private let validator = UserInputValidator(allowingLengthsFrom: 1,
+                                               to: 39,
+                                               matching: "^[a-z0-9](?:[a-z0-9]|-(?=[a-z0-9])){0,38}$",
+                                               negating: "[^a-z0-9-]")
 
     // MARK: - Life cycle
     
@@ -79,11 +84,15 @@ class SearchViewController: UIViewController {
     //MARK: - Actions
     
     @objc private func searchButtonTapped(_ sender: UIButton) {
-        if let searchTerm = searchField.text,
-           searchTerm.count > 0 {
-            print("Searching for user \(searchTerm)...")
-            let resultsVC = ResultsViewController(searchTerm)
-            navigationController?.pushViewController(resultsVC, animated: true)
+        validator.validateInput(fromTextField: searchField) { result in
+            switch result {
+            case .failure(let error):
+                self.present(AlertFactory.makeErrorAlert(message: error.localizedDescription), animated: true, completion: nil)
+            case .success(let term):
+                print("Searching for user \(term)...")
+                let resultsVC = ResultsViewController(term)
+                navigationController?.pushViewController(resultsVC, animated: true)
+            }
         }
     }
 }
