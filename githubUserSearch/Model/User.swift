@@ -8,16 +8,22 @@
 import Foundation
 import SwiftyJSON
 
+enum UserModelError: LocalizedError {
+    case invalidModel
+    
+    var errorDescription: String? {
+        return "Отсутствуют обязательные параметры модели"
+    }
+}
+
 class User {
     var name: String
     var avatarUrl: String
     
-    init(fromJson json: JSON) {
+    init(fromJson json: JSON) throws {
         guard let login = json["login"].string,
               let avatar_url = json["avatar_url"].string else {
-            name = "ERROR"
-            avatarUrl = ""
-            return
+            throw UserModelError.invalidModel
         }
         name = login
         avatarUrl = avatar_url
