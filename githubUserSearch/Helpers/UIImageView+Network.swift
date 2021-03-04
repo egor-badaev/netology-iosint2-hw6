@@ -8,8 +8,10 @@
 import UIKit
 
 extension UIImageView {
-    func downloaded(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
+    func downloaded(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit) -> URLSessionDataTask? {
         contentMode = mode
+        
+        guard self.image == nil else { return nil }
 
         // Put activity indicator while image is being loaded
         let activityIndicator = UIActivityIndicatorView(frame: self.bounds)
@@ -24,7 +26,7 @@ extension UIImageView {
         activityIndicator.startAnimating()
 
         // download image
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let httpURLResponse = response as? HTTPURLResponse,
                   httpURLResponse.statusCode == 200,
                   let mimeType = response?.mimeType,
@@ -51,10 +53,12 @@ extension UIImageView {
                 // set image
                 self?.image = image
             }
-        }.resume()
+        }
+        task.resume()
+        return task
     }
-    func downloaded(from link: String, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
-        guard let url = URL(string: link) else { return }
-        downloaded(from: url, contentMode: mode)
+    func downloaded(from link: String, contentMode mode: UIView.ContentMode = .scaleAspectFit) -> URLSessionDataTask? {
+        guard let url = URL(string: link) else { return nil }
+        return downloaded(from: url, contentMode: mode)
     }
 }

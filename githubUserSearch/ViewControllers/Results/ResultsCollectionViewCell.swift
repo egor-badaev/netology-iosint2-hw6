@@ -28,6 +28,8 @@ class ResultsCollectionViewCell: UICollectionViewCell {
         return $0
     }(UILabel())
     
+    private var avatarDataTask: URLSessionDataTask?
+    
     // MARK: - Life cycle
     
     override init(frame: CGRect) {
@@ -56,10 +58,16 @@ class ResultsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        avatarDataTask?.cancel()
+        avatarImage.image = nil
+    }
+
     // MARK: - Public functions
     
     func configure(withName name: String, avatarUrl: String) {
         nameLabel.text = name
-        avatarImage.downloaded(from: avatarUrl)
+        avatarDataTask = avatarImage.downloaded(from: avatarUrl)
     }
 }
