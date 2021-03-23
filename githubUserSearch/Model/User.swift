@@ -9,18 +9,22 @@ import Foundation
 import SwiftyJSON
 
 class User {
+    var identifier: Int
     var name: String
     var avatarUrl: String
     
     init(fromJson json: JSON) {
-        guard let login = json["login"].string,
-              let avatar_url = json["avatar_url"].string else {
+        guard let id = json["id"].int,
+              let login = json["login"].string,
+              let avatar = json["avatar_url"].string else {
+            identifier = 0
             name = "ERROR"
             avatarUrl = ""
             return
         }
+        identifier = id
         name = login
-        avatarUrl = avatar_url
+        avatarUrl = avatar
     }
     
     func printInfo() {
