@@ -14,7 +14,10 @@ class ResultsCollectionViewCell: UICollectionViewCell {
     static var reuseIdentifier: String {
         return String(describing: self)
     }
-    private var avatarImage: UIImageView = {
+    
+    var representedIdentifier: Int = 0
+    
+    private var avatarImageView: UIImageView = {
         $0.toAutoLayout()
         $0.contentMode = .scaleAspectFit
         return $0
@@ -28,7 +31,11 @@ class ResultsCollectionViewCell: UICollectionViewCell {
         return $0
     }(UILabel())
     
-    private var avatarDataTask: URLSessionDataTask?
+    private let activityIndicator: UIActivityIndicatorView = {
+        let ai = UIActivityIndicatorView(style: .large)
+        ai.translatesAutoresizingMaskIntoConstraints = false
+        return ai
+    }()
     
     // MARK: - Life cycle
     
@@ -37,37 +44,58 @@ class ResultsCollectionViewCell: UICollectionViewCell {
         
         self.backgroundColor = .white
         
-        self.addSubview(avatarImage)
+        self.addSubview(avatarImageView)
         self.addSubview(nameLabel)
+        self.addSubview(activityIndicator)
         
         let constraints = [
-            avatarImage.topAnchor.constraint(equalTo: topAnchor, constant: AppSettings.padding),
-            avatarImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            avatarImage.widthAnchor.constraint(equalToConstant: 132),
-            avatarImage.heightAnchor.constraint(equalTo: avatarImage.widthAnchor),
-            nameLabel.topAnchor.constraint(equalTo: avatarImage.bottomAnchor, constant: AppSettings.spacing),
+            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: AppSettings.padding),
+            avatarImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 132),
+            avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
+            nameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: AppSettings.spacing),
             nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: AppSettings.padding),
             nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -AppSettings.padding),
-            nameLabel.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: -AppSettings.padding)
+            nameLabel.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: -AppSettings.padding),
+            activityIndicator.centerXAnchor.constraint(equalTo: avatarImageView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)
+        
+        showActivity()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        avatarDataTask?.cancel()
-        avatarImage.image = nil
-    }
-
     // MARK: - Public functions
     
-    func configure(withName name: String, avatarUrl: String) {
+    func configure(withName name: String, avatar: UIImage, identifier: Int) {
+        representedIdentifier = identifier
         nameLabel.text = name
-        avatarDataTask = avatarImage.downloaded(from: avatarUrl)
+        avatarImageView.image = avatar
+        hideActivity()
+    }
+    
+    func resetData() {
+        nameLabel.text = nil
+        avatarImageView.image = nil
+        showActivity()
+    }
+    
+    // MARK: - Private functions
+    
+    private func showActivity() {
+        guard !activityIndicator.isAnimating else { return }
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    private func hideActivity() {
+        guard activityIndicator.isAnimating else { return }
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
     }
 }
