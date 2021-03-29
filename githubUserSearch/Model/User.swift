@@ -17,16 +17,19 @@ enum UserModelError: LocalizedError {
 }
 
 class User {
+    var identifier: Int
     var name: String
     var avatarUrl: String
     
     init(fromJson json: JSON) throws {
-        guard let login = json["login"].string,
-              let avatar_url = json["avatar_url"].string else {
+        guard let id = json["id"].int,
+              let login = json["login"].string,
+              let avatar = json["avatar_url"].string else {
             throw UserModelError.invalidModel
         }
+        identifier = id
         name = login
-        avatarUrl = avatar_url
+        avatarUrl = avatar
     }
     
     func printInfo() {

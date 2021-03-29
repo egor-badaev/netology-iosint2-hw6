@@ -37,12 +37,15 @@ class ResultsViewController: UIViewController {
         
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.prefetchDataSource = self
         
         // Hide view while loading data
         collectionView.isHidden = true
         
         return collectionView
     }()
+    
+    private let imageFetcher = ResultsImageFetcher.shared
 
     
     // MARK: - Life cycle
@@ -149,7 +152,31 @@ extension ResultsViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.configure(withName: user.name, avatarUrl: user.avatarUrl)
+        let identifier = user.identifier
+        
+        cell.representedIdentifier = identifier
+        
+        if let fetchedImage = imageFetcher.fetchedImage(for: identifier) {
+            cell.configure(withName: user.name, avatar: fetchedImage, identifier: identifier)
+        } else {
+            cell.resetData()
+            
+            imageFetcher.fetchAsync(from: user.avatarUrl, for: identifier) { result in
+                
+                guard cell.representedIdentifier == identifier else { return }
+                
+                switch result {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    return
+                case .success(let image):
+                    DispatchQueue.main.async {
+                        cell.configure(withName: user.name, avatar: image, identifier: identifier)
+                    }
+                    
+                }
+            }
+        }
         
         return cell
         
@@ -166,6 +193,25 @@ extension ResultsViewController: UICollectionViewDataSource {
         return headerView
     }
 
+}
+
+// MARK: - UICollectionViewDataSourcePrefetching
+extension ResultsViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        guard let results = results else { return }
+        for indexPath in indexPaths {
+            let user = results.users[indexPath.item]
+            imageFetcher.fetchAsync(from: user.avatarUrl, for: user.identifier)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        guard let results = results else { return }
+        for indexPath in indexPaths {
+            let user = results.users[indexPath.item]
+            imageFetcher.calcelFetch(for: user.identifier)
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
