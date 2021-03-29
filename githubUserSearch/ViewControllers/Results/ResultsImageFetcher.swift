@@ -7,21 +7,6 @@
 
 import UIKit
 
-enum ImageFetcherError: LocalizedError {
-    case invalidURL
-    case badResponse
-     
-    var errorDescription: String? {
-        switch self {
-        case .invalidURL:
-            return "Данный URL не является валидным"
-        case .badResponse:
-            return "Не удалось получить изображение"
-        }
-    }
-}
-
-
 class ResultsImageFetcher {
     
     static let shared: ResultsImageFetcher = {
@@ -42,7 +27,7 @@ class ResultsImageFetcher {
     func fetchAsync(from urlString: String, for identifier: Int, completion: ((Result<UIImage,Error>) -> Void)?) {
         
         guard let url = URL(string: urlString) else {
-            completion?(.failure(ImageFetcherError.invalidURL))
+            completion?(.failure(NetworkError.invalidURL))
             return
         }
         
@@ -54,7 +39,7 @@ class ResultsImageFetcher {
                   let data = data,
                   error == nil,
                   let image = UIImage(data: data) else {
-                completion?(.failure(ImageFetcherError.badResponse))
+                completion?(.failure(NetworkError.badResponse))
                 return
             }
 

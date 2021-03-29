@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7429E5A026125B5F000DA30E /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7429E59F26125B5F000DA30E /* NetworkError.swift */; };
 		743823EC25E8420100CA4379 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743823EB25E8420100CA4379 /* AppDelegate.swift */; };
 		743823EE25E8420100CA4379 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743823ED25E8420100CA4379 /* SceneDelegate.swift */; };
 		743823F025E8420100CA4379 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743823EF25E8420100CA4379 /* SearchViewController.swift */; };
@@ -37,6 +38,7 @@
 		153A126915A0D235D62D3C3E /* Pods-githubUserSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-githubUserSearch.debug.xcconfig"; path = "Target Support Files/Pods-githubUserSearch/Pods-githubUserSearch.debug.xcconfig"; sourceTree = "<group>"; };
 		30B1102A491A977988D1D438 /* Pods-githubUserSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-githubUserSearch.release.xcconfig"; path = "Target Support Files/Pods-githubUserSearch/Pods-githubUserSearch.release.xcconfig"; sourceTree = "<group>"; };
 		4692BE9831C1C2754E4DC072 /* Pods_githubUserSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_githubUserSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7429E59F26125B5F000DA30E /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		743823E825E8420100CA4379 /* githubUserSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = githubUserSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		743823EB25E8420100CA4379 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		743823ED25E8420100CA4379 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				7488118825E97A2000B9BBC5 /* UIView+AutoLayout.swift */,
 				74873AF125EECB67008914E2 /* NSRegularExpression.swift */,
 				74873B0725EEE021008914E2 /* Pluralization */,
+				7429E59F26125B5F000DA30E /* NetworkError.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				743823EE25E8420100CA4379 /* SceneDelegate.swift in Sources */,
 				7488118225E970A900B9BBC5 /* Results.swift in Sources */,
 				7488117725E9645B00B9BBC5 /* AlertFactory.swift in Sources */,
+				7429E5A026125B5F000DA30E /* NetworkError.swift in Sources */,
 				74746F2225EAE4FF00E7CC76 /* TimerProvider.swift in Sources */,
 				74873AFB25EED9A7008914E2 /* Double+Pluralization.swift in Sources */,
 				74FCEB33260A7B2E0095AFD7 /* ResultsImageFetcher.swift in Sources */,

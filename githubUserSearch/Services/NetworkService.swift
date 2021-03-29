@@ -8,23 +8,6 @@
 import Foundation
 import SwiftyJSON
 
-enum NetworkServiceError: LocalizedError {
-    case invalidURL
-    case badResponse
-    case invalidData
-    
-    var errorDescription: String? {
-        switch self {
-        case .invalidURL:
-            return "Данный URL не является валидным"
-        case .badResponse:
-            return "Не получен валидный ответ от сервера"
-        case .invalidData:
-            return "Не удалось распознать ответ от сервера"
-        }
-    }
-}
-
 class NetworkService {
     
     static let sharedManager: NetworkService = {
@@ -47,7 +30,7 @@ class NetworkService {
 
         guard let queryString = "q=\(term)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: "\(baseUrl)?\(queryString)") else {
-            completion(.failure(NetworkServiceError.invalidURL))
+            completion(.failure(NetworkError.invalidURL))
             return
         }
 
@@ -65,7 +48,7 @@ class NetworkService {
                   mimeType.hasSuffix("json"),
                   let data = data else {
                 self.fetchInProgress = false
-                completion(.failure(NetworkServiceError.badResponse))
+                completion(.failure(NetworkError.badResponse))
                 return
             }
             
@@ -73,7 +56,7 @@ class NetworkService {
             self.fetchInProgress = false
             
             guard let json = try? JSON(data: data) else {
-                completion(.failure(NetworkServiceError.invalidData))
+                completion(.failure(NetworkError.invalidData))
                 return
             }
             
